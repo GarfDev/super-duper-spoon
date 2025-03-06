@@ -11,8 +11,13 @@
   },
   "dependencies": {
     "@acau/common": "workspace:*",
+    "@heroui/navbar": "^2.2.13",
     "@heroui/react": "^2.7.4",
+    "@heroui/system": "^2.4.11",
+    "@heroui/theme": "^2.4.11",
+    "@heroui/user": "^2.2.11",
     "@remix-pwa/dev": "^3.1.0",
+    "@remix-pwa/sw": "^3.0.10",
     "@remix-pwa/worker-runtime": "^2.1.4",
     "@remix-run/express": "^2.16.0",
     "@remix-run/node": "^2.16.0",

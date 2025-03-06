@@ -7,10 +7,12 @@ import {
   ScrollRestoration,
   useRevalidator,
 } from '@remix-run/react';
+import { ManifestLink, useSWEffect } from '@remix-pwa/sw';
 import type { LinksFunction } from '@remix-run/node';
 
 import './tailwind.css';
 import Providers from './providers';
+import { NavigationBar } from './components';
 
 export const links: LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -26,19 +28,24 @@ export const links: LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+
+  useSWEffect();
+
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
+        <ManifestLink manifestUrl="/manifest.webmanifest" />
         <Links />
       </head>
-      <body>
+      <body className='dark text-foreground bg-background'>
         <Providers>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
+          <NavigationBar />
+          {children}
+          <ScrollRestoration />
+          <Scripts />
         </Providers>
       </body>
     </html>
