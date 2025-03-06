@@ -8,9 +8,9 @@ import {
   useRevalidator,
 } from '@remix-run/react';
 import type { LinksFunction } from '@remix-run/node';
-import { A } from '@acau/common';
 
 import './tailwind.css';
+import Providers from './providers';
 
 export const links: LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -35,10 +35,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        <Providers>
         {children}
-        {A.B}
         <ScrollRestoration />
         <Scripts />
+        </Providers>
       </body>
     </html>
   );
