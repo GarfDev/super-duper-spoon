@@ -26,7 +26,7 @@ tasks:
   dev:
     # Can't use `remix dev` because it can't find npm bins correctly.
     # It requires Node's module resolution.
-    command: 'vite dev'
+    command: 'remix vite:dev'
     options:
       runInCI: false
     deps:

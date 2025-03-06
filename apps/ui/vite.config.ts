@@ -38,6 +38,19 @@ export default defineConfig({
       },
     },
     tsconfigPaths(),
-    remixPWA(),
+    remixPWA({
+      // Add this configuration to prevent header conflicts
+      workerBuildDirectory: "public/sw",
+    }),
   ],
+
+  server: {
+    proxy: {},
+    // @ts-ignore
+    https: {
+      key: '../../configs/certs/key.pem',
+      cert: '../../configs/certs/cert.pem',
+    },
+    port: 3000,
+  },
 });
