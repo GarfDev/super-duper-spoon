@@ -1,0 +1,42 @@
+{
+  "name": "@acau/common",
+  "version": "1.0.0",
+  "description": "Shared package using in project.",
+  "repository": "https://github.com/GarfDev/moonrepo-remix-boilerplate",
+  "author": "AC AU",
+  "keywords": [
+    "acau",
+    "common"
+  ],
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
+  "files": [
+    "dist/**/*",
+    "lib/**/*",
+    "src/**/*"
+  ],
+  "packemon": {
+    "format": "lib",
+    "platform": "node"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./*": {
+      "types": "./lib/*.d.ts",
+      "default": "./lib/*.js"
+    }
+  },
+  "engines": {
+    "node": ">=18.12.0"
+  },
+  "packageManager": "pnpm@9.12.3"
+}

@@ -1,0 +1,14 @@
+type: 'library'
+
+workspace:
+  inheritedTasks:
+    exclude: ['build', 'typecheck']
+
+tasks:
+  build:
+    command: 'pnpm run build'
+    outputs:
+      - 'lib'
+
+  typecheck:
+    command: 'pnpm run typecheck'

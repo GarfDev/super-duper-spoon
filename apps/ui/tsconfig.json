@@ -1,0 +1,25 @@
+{
+  "extends": "../../tsconfig.options.json",
+  "compilerOptions": {
+    "outDir": "../../.moon/cache/types/apps/ui",
+    "baseUrl": ".",
+    "emitDeclarationOnly": false,
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "paths": {
+      "~/*": ["./app/*"]
+    }
+  },
+  "include": ["remix.config.js", "remix.env.d.ts", "app/**/*"],
+  "references": [
+    {
+      "path": "../../packages/common"
+    },
+    {
+      "path": "../../packages/types"
+    }
+  ]
+}

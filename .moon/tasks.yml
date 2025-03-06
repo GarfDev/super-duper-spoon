@@ -1,0 +1,8 @@
+fileGroups:
+  sources:
+    - 'src/**/*'
+    - 'app/**/*'
+    - 'types/**/*'
+  tests:
+    - 'tests/**/*.test.*'
+    - '**/__tests__/**/*'

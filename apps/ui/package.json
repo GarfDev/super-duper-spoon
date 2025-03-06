@@ -1,0 +1,42 @@
+{
+  "name": "ui",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "scripts": {
+    "build": "remix vite:build",
+    "dev": "remix vite:dev",
+    "start": "remix-serve ./build/server/index.js",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@acau/common": "workspace:*",
+    "@remix-pwa/dev": "^3.1.0",
+    "@remix-pwa/worker-runtime": "^2.1.4",
+    "@remix-run/express": "^2.16.0",
+    "@remix-run/node": "^2.16.0",
+    "@remix-run/react": "^2.16.0",
+    "@remix-run/serve": "^2.16.0",
+    "cross-env": "^7.0.3",
+    "express": "^4.21.2",
+    "isbot": "^4.1.0",
+    "lodash": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@acau/types": "workspace:*",
+    "@remix-run/dev": "^2.16.0",
+    "@types/express": "^5.0.0",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4",
+    "vite-tsconfig-paths": "^4.2.1"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "packageManager": "pnpm@9.12.3"
+}

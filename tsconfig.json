@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.options.json",
+  "files": [],
+  "references": [
+    {
+      "path": "apps/ui"
+    },
+    {
+      "path": "packages/common"
+    },
+    {
+      "path": "packages/types"
+    }
+  ]
+}

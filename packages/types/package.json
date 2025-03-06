@@ -1,0 +1,23 @@
+{
+  "name": "@acau/types",
+  "version": "1.0.0",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --build --verbose",
+    "typecheck": "tsc"
+  },
+  "files": [
+    "lib/**/*",
+    "src/**/*"
+  ],
+  "exports": {
+    "./package.json": "./package.json",
+    "./*": {
+      "types": "./dist/*.d.ts"
+    },
+    ".": {
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "packageManager": "pnpm@9.12.3"
+}

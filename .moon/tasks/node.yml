@@ -1,0 +1,75 @@
+$schema: 'https://moonrepo.dev/schemas/tasks.json'
+
+implicitInputs:
+  - 'package.json'
+
+fileGroups:
+  # Application specific files
+  app: []
+  configs:
+    - '*.{js,json,yml,yaml}'
+  sources:
+    - 'src/**/*'
+    - 'types/**/*'
+  tests:
+    - 'tests/**/*.test.*'
+    - 'tests/**/*.stories.*'
+    - '**/__tests__/**/*'
+  assets:
+    - 'assets/**/*'
+    - 'images/**/*'
+    - 'static/**/*'
+    - '**/*.{scss,css}'
+    - '**/*.{md,mdx}'
+
+tasks:
+  # https://moonrepo.dev/docs/guides/examples/prettier
+  format:
+    command:
+      - 'biome'
+      - 'lint'
+      - '--write'
+      - '@in(0)'
+    inputs:
+      - '@group(app)'
+      - '@globs(sources)'
+      - '!**/*.js'
+
+  format-write:
+    command:
+      - 'biome'
+      - 'format'
+      - '--write'
+      - '@in(0)'
+    inputs:
+      - '@group(app)'
+      - '@globs(sources)'
+      - '@globs(tests)'
+      - '**/*.{md,mdx}'
+      - '!**/*.js'
+
+    local: true
+
+  # https://moonrepo.dev/docs/guides/examples/jest
+  test:
+    command:
+      - 'jest'
+      - '--passWithNoTests'
+      - '--preset'
+      - 'jest-preset-moon'
+    inputs:
+      - '@globs(sources)'
+      - '@globs(tests)'
+      - 'jest.config.*'
+
+  # https://moonrepo.dev/docs/guides/examples/typescript
+  typecheck:
+    command:
+      - 'tsc'
+    inputs:
+      - '@group(app)'
+      - '@globs(sources)'
+      - '@globs(tests)'
+      - 'tsconfig.json'
+      - 'tsconfig.*.json'
+      - '/tsconfig.options.json'

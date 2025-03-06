@@ -1,0 +1,24 @@
+
+# moon
+.moon/cache
+.moon/docker
+
+# moon
+.moon/cache
+.moon/docker
+
+# yarn
+.yarn
+
+## build
+dist
+lib
+
+# node
+node_modules
+
+# Build cache manifests
+*.tsbuildinfo
+
+# Git
+.git
