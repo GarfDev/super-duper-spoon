@@ -1,7 +1,17 @@
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@heroui/react";
-import {User} from "@heroui/user";
+import {
+  Link,
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+} from "@heroui/react";
+import { User } from "@heroui/user";
+import { AppContext } from "~/types";
 
-interface Props {}
+interface Props {
+  isLoggedIn: AppContext["isLoggedIn"];
+  user?: AppContext["user"];
+}
 
 export const AcmeLogo = () => {
   return (
@@ -16,7 +26,10 @@ export const AcmeLogo = () => {
   );
 };
 
-const NavigationBar = ({}: Props) => {
+const NavigationBar = ({ isLoggedIn, user }: Props) => {
+  const isAnonymous = user?.is_anonymous;
+  const username = user?.user_metadata?.username;
+
   return (
     <Navbar>
       <NavbarBrand>
@@ -29,22 +42,31 @@ const NavigationBar = ({}: Props) => {
             Home
           </Link>
         </NavbarItem>
-
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem>
-          <User
-          className="p-4 pl-8"
-            avatarProps={{
-              src: "https://avatars.githubusercontent.com/u/54764688?v=4&size=64",
-            }}
-            description="Software Enginner"
-            name="Garfield"
-          />
-        </NavbarItem>
+        {!isLoggedIn && (
+          <NavbarItem>
+            <Link color="foreground" href="#">
+              Sign In
+            </Link>
+          </NavbarItem>
+        )}
+        {isLoggedIn && (
+          <NavbarItem>
+            <User
+              className="p-4 pl-8"
+              avatarProps={{
+                alt: "Avatar",
+                src: user?.user_metadata?.avatar_url,
+              }}
+              description={user?.user_metadata?.description}
+              name={isAnonymous ? "Anonymous" : username}
+            />
+          </NavbarItem>
+        )}
       </NavbarContent>
     </Navbar>
-  )
-}
+  );
+};
 
-export default NavigationBar
+export default NavigationBar;

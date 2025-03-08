@@ -1,10 +1,11 @@
-import { vitePlugin as remix } from '@remix-run/dev';
-import { defineConfig } from 'vite';
-import tsconfigPaths from 'vite-tsconfig-paths';
-import { remixPWA } from '@remix-pwa/dev';
+import { vitePlugin as remix } from "@remix-run/dev";
+import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+
+import { remixPWA } from "@remix-pwa/dev";
 
 // @ts-ignore
-declare module '@remix-run/node' {
+declare module "@remix-run/node" {
   interface Future {
     v3_singleFetch: true;
   }
@@ -23,17 +24,17 @@ export default defineConfig({
     }),
     // Custom plugin resolves warning - Failed to resolve "remix:manifest" from /Users/... An id should be written. Did you pass a URL?
     {
-      name: 'remix-manifest-resolver',
+      name: "remix-manifest-resolver",
       resolveId(id) {
-        if (id === 'remix:manifest') {
+        if (id === "remix:manifest") {
           return id;
         }
       },
       // Optional: warning is suppressed without this hook
       // Provides an empty object for 'remix:manifest' if HMR triggers, but HMR remains non-functional
       load(id) {
-        if (id === 'remix:manifest') {
-          return 'export default {}';
+        if (id === "remix:manifest") {
+          return "export default {}";
         }
       },
     },
@@ -48,8 +49,8 @@ export default defineConfig({
     proxy: {},
     // @ts-ignore
     https: {
-      key: '../../configs/certs/key.pem',
-      cert: '../../configs/certs/cert.pem',
+      key: "../../configs/certs/key.pem",
+      cert: "../../configs/certs/cert.pem",
     },
     port: 3000,
   },
