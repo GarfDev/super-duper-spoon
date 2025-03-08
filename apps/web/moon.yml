@@ -1,31 +1,32 @@
-type: 'application'
-
-fileGroups:
-  sources:
-    - 'app/**/*'
-    - 'types/**/*'
-
-workspace:
-  inheritedTasks:
-    exclude: ['test']
+type: "application"
 
 tasks:
   build:
-    command: 'pnpm run build'
-    options:
-      runInCI: false
-    deps:
-      - 'common:build'
-      - 'types:build'
+    command:
+      - "pnpm"
+      - "run"
+      - "build"
     inputs:
-      - '${fileGroups.sources}'
+      - "@globs(sources)"
+      - "package.json"
+      - "tsconfig.*.json"
 
   dev:
-      # Can't use `remix dev` because it can't find npm bins correctly.
-      # It requires Node's module resolution.
-      command: 'pnpm run dev'
-      options:
-        runInCI: false
-      deps:
-        - 'common:build'
-        - 'types:build'
+    command:
+      - "pnpm"
+      - "run"
+      - "dev"
+    inputs:
+      - "@globs(sources)"
+      - "package.json"
+      - "tsconfig.*.json"
+
+  start:
+    command:
+      - "pnpm"
+      - "run"
+      - "start"
+    inputs:
+      - "@globs(sources)"
+      - "package.json"
+      - "tsconfig.*.json"
