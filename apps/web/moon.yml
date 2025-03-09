@@ -1,32 +1,37 @@
-type: "application"
+type: 'application'
+
+fileGroups:
+  sources:
+    - 'app/**/*'
+    - 'types/**/*'
+
+workspace:
+  inheritedTasks:
+    exclude: ['test']
 
 tasks:
   build:
-    command:
-      - "pnpm"
-      - "run"
-      - "build"
+    command: 'pnpm run build'
+    options:
+      runInCI: false
+    deps:
+      - 'common:build'
+      - 'types:build'
     inputs:
-      - "@globs(sources)"
-      - "package.json"
-      - "tsconfig.*.json"
+      - '@group(app)'
+      - '@group(sources)'
+    outputs:
+      - 'dist'
 
   dev:
-    command:
-      - "pnpm"
-      - "run"
-      - "dev"
-    inputs:
-      - "@globs(sources)"
-      - "package.json"
-      - "tsconfig.*.json"
+    # Can't use `remix dev` because it can't find npm bins correctly.
+    # It requires Node's module resolution.
+    command: 'vite dev'
+    options:
+      runInCI: false
+    deps:
+      - 'common:build'
+      - 'types:build'
 
   start:
-    command:
-      - "pnpm"
-      - "run"
-      - "start"
-    inputs:
-      - "@globs(sources)"
-      - "package.json"
-      - "tsconfig.*.json"
+    command: 'vite preview'

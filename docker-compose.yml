@@ -1,13 +1,13 @@
 version: '3.8'
 
 services:
-  coffee-rnb-ui:
-    container_name: coffee-rnb-ui
+  super-duper-spoon-web:
+    container_name: super-duper-spoon-web
     build:
       context: .
-      dockerfile: ./apps/ui/Dockerfile
+      dockerfile: ./apps/web/Dockerfile
     ports:
-      - "3000:3000"
+      - "4132:4132"
     environment:
       - NODE_ENV=production
     restart: unless-stopped

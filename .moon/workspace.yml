@@ -17,6 +17,12 @@ projects:
     - 'apps/*'
     - 'packages/*'
 
+docker:
+  scaffold:
+    include:
+      - 'configs/**/*'
+
+
 vcs:
   manager: 'git'
   defaultBranch: 'main'
