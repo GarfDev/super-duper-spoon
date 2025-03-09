@@ -35,6 +35,10 @@ export default defineConfig({
         globPatterns: ["**/*.{js,css,html,svg,png,ico}"],
       },
 
+      workbox: {
+        globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
+      },
+
       devOptions: {
         enabled: true,
         navigateFallback: "index.html",
