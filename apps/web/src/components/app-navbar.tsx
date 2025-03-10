@@ -3,6 +3,7 @@ import { SidebarTrigger } from "./ui/sidebar";
 import { FilePlus2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import AppPermission from "./app-permission";
 
 export const NAV_HEIGHT = 64;
 
@@ -24,6 +25,7 @@ const AppNavbar = ({ className }: Props) => {
         <Button className={cn("h-9 w-9", className)} variant="ghost">
           <FilePlus2 className="scale-125" />
         </Button>
+        <AppPermission />
       </div>
 
       <div className="flex flex-nowrap justify-end">

@@ -1,6 +1,5 @@
 import { EventEmitter } from "~/utils/event-emitter";
-
-import { RecordServiceEventTypes } from "./constants";
+import { DEFAULT_TIME_SLICE_MS, RecordServiceEventTypes } from "./constants";
 import { RecordServiceEvents } from "./types";
 
 class RecordManager {
@@ -8,6 +7,8 @@ class RecordManager {
   private mediaRecorder: MediaRecorder | null = null;
   private audioContext: AudioContext | null = null;
   private mediaStream: MediaStream | null = null;
+  private tabStream: MediaStream | null = null; // Add these
+  private micStream: MediaStream | null = null; // Add these
   private isRecording: boolean = false;
 
   public emitter = new EventEmitter<RecordServiceEvents>();
@@ -15,10 +16,10 @@ class RecordManager {
   private constructor() {}
 
   public static getInstance(): RecordManager {
-    if (!RecordManager.instance) {
-      RecordManager.instance = new RecordManager();
+    if (!this.instance) {
+      this.instance = new RecordManager();
     }
-    return RecordManager.instance;
+    return this.instance;
   }
 
   private initializeRecorder(stream: MediaStream) {
@@ -37,19 +38,28 @@ class RecordManager {
   public async start() {
     if (this.isRecording) return;
 
-    const tabStream = await navigator.mediaDevices.getDisplayMedia({
+    // Save original streams
+    this.tabStream = await navigator.mediaDevices.getDisplayMedia({
       audio: true,
       video: true,
     });
 
-    const micStream = await navigator.mediaDevices.getUserMedia({
-      audio: true,
+    this.micStream = await navigator.mediaDevices.getUserMedia({
+      audio: {
+        noiseSuppression: true,
+        autoGainControl: true,
+        echoCancellation: true,
+      },
     });
 
     this.audioContext = new AudioContext();
 
-    const tabAudioSource = this.audioContext.createMediaStreamSource(tabStream);
-    const micAudioSource = this.audioContext.createMediaStreamSource(micStream);
+    const tabAudioSource = this.audioContext.createMediaStreamSource(
+      this.tabStream,
+    );
+    const micAudioSource = this.audioContext.createMediaStreamSource(
+      this.micStream,
+    );
     const destination = this.audioContext.createMediaStreamDestination();
 
     const gainNode = this.audioContext.createGain();
@@ -59,7 +69,7 @@ class RecordManager {
     micAudioSource.connect(gainNode).connect(destination);
 
     this.initializeRecorder(destination.stream);
-    this.mediaRecorder?.start(2000);
+    this.mediaRecorder?.start(DEFAULT_TIME_SLICE_MS);
     this.isRecording = true;
     this.emitter.emit(RecordServiceEventTypes.STATE_CHANGE, true);
   }
@@ -84,7 +94,7 @@ class RecordManager {
     if (!this.isRecording) return;
     this.mediaRecorder?.stop();
     this.isRecording = false;
-    this.emitter.emit(RecordServiceEventTypes.STATE_CHANGE, true);
+    this.emitter.emit(RecordServiceEventTypes.STATE_CHANGE, false); // emit false when stopping
   }
 
   private handleStop() {
@@ -93,10 +103,19 @@ class RecordManager {
 
   private cleanup() {
     this.mediaRecorder = null;
+
     this.audioContext?.close();
     this.audioContext = null;
+
     this.mediaStream?.getTracks().forEach((track) => track.stop());
     this.mediaStream = null;
+
+    // Explicitly stop original streams to ensure recording fully stops
+    this.tabStream?.getTracks().forEach((track) => track.stop());
+    this.micStream?.getTracks().forEach((track) => track.stop());
+
+    this.tabStream = null;
+    this.micStream = null;
   }
 
   public isRecordingInProgress() {
@@ -110,6 +129,5 @@ class RecordManager {
 
 export default RecordManager;
 
-/** Only re-export important types and constants */
 export { RecordServiceEventTypes } from "./constants";
 export { type RecordServiceEvents } from "./types";

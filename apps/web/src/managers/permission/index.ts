@@ -29,6 +29,19 @@ class PermissionManager {
 
     return permission.state;
   };
+
+  public promptMicrophone = async () => {
+    const permission = await navigator.permissions.query({
+      name: "microphone" as PermissionName,
+    });
+    if (permission.state === "granted") {
+      return;
+    }
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+    });
+    stream.getTracks().forEach((track) => track.stop());
+  };
 }
 
 export default PermissionManager;
