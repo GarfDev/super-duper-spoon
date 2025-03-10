@@ -1,0 +1,22 @@
+
+type: 'application'
+
+fileGroups:
+  sources:
+    - 'src/**/*'
+    - 'types/**/*'
+
+workspace:
+  inheritedTasks:
+    exclude: ['test']
+    
+tasks:
+  build:
+    command: "pnpm run build"
+    inputs:
+      - "src/**"
+      - "tsconfig.json"
+  start:
+    command: "pnpm run start"
+    deps:
+      - "build"

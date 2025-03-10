@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist",
+    "tsBuildInfoFile": "../../.moon/cache/types/apps/services",
+    "target": "es2017",
+    "skipLibCheck": true,
+    "module": "NodeNext",
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+    "rootDir": "./src",
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
