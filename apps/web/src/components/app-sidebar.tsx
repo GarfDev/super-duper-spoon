@@ -10,7 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "~/components/ui/sidebar";
-import { ThemeStore } from "~/globals/stores";
+import { PreferenceStore } from "~/globals/stores";
 import { cn } from "~/lib/utils";
 
 // Menu items.
@@ -33,7 +33,7 @@ const items = [
 ];
 
 export function AppSidebar() {
-  const { theme } = ThemeStore.store();
+  const { theme } = PreferenceStore.store();
   const location = useLocation();
 
   return (

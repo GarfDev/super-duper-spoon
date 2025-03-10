@@ -1,10 +1,10 @@
 import clsx from "clsx";
-import { ThemeStore } from "./globals/stores";
 import Layout from "./components/layout.tsx";
 import { RootRoute } from "./routes/root.routes.tsx";
+import { PreferenceStore } from "./globals/stores/index.ts";
 
 function App() {
-  const { theme } = ThemeStore.store();
+  const { theme } = PreferenceStore.store();
 
   return (
     <>
